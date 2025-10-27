@@ -11,6 +11,7 @@ class CatalogController extends Controller
     {
         $q     = $request->string('q')->toString();
         $size  = $request->string('size')->toString();
+        $brand = $request->string('brand')->toString();
 
         $products = Product::with('variants')
             ->when($q, fn($qq) => $qq->where(function($w) use ($q){
@@ -18,6 +19,7 @@ class CatalogController extends Controller
                   ->orWhere('brand', 'like', "%{$q}%")
                   ->orWhere('color', 'like', "%{$q}%");
             }))
+            ->when($brand, fn($qb) => $qb->where('brand', $brand))
             // mostra solo prodotti che hanno almeno una variante con stock > 0
             ->whereHas('variants', fn($v) => $v->when($size, fn($sv) => $sv->where('size', $size)))
             ->latest()
@@ -32,7 +34,7 @@ class CatalogController extends Controller
             ->orderBy('product_variants.size')
             ->pluck('product_variants.size');
 
-        return view('catalog.index', compact('products', 'q', 'size', 'allSizes'));
+        return view('catalog.index', compact('products', 'q', 'size', 'brand', 'allSizes'));
     }
 
     public function show(Product $product)

@@ -7,10 +7,10 @@
             Streetwear selezionato
           </span>
           <h1 class="display-5 fw-bold mb-3">
-            Outfit essenziali per vivere la città con stile minimale.
+            Per farti vivere la città come se fossi sempre con la squadra.
           </h1>
           <p class="lead text-muted-soft mb-4">
-            StreetHooligans cura drop limitati e capi evergreen. Nessun eccesso, solo silhouette pulite e materiali premium.
+            StreetHooligans cura drop limitati. Nessun eccesso, solo silhouette pulite e materiali premium.
           </p>
           <div class="d-flex flex-wrap gap-3">
             <a href="{{ route('catalog.index') }}" class="btn btn-dark btn-pill btn-lg">
@@ -40,35 +40,33 @@
     </div>
   </section>
 
+  @php
+    $brandSpotlight = [
+      ['name' => 'Andy Capp', 'image' => 'images/brands/andy-capp.jpeg', 'brand' => 'Andy Capp'],
+      ['name' => 'Burlington', 'image' => 'images/brands/burlington.jpeg', 'brand' => 'Burlington'],
+      ['name' => 'Farah', 'image' => 'images/brands/farah.jpeg', 'brand' => 'Farah'],
+      ['name' => 'The Casual Thug', 'image' => 'images/brands/casual-thug.jpeg', 'brand' => 'The Casual Thug'],
+      ['name' => 'Shambles', 'image' => 'images/brands/shambles.jpeg', 'brand' => 'Shambles'],
+      ['name' => 'Lyle & Scott', 'image' => 'images/brands/lyle-scott.jpeg', 'brand' => 'Lyle & Scott'],
+      ['name' => 'Marshall Artist', 'image' => 'images/brands/marshall-artist.jpeg', 'brand' => 'Marshall Artist'],
+      ['name' => 'Weekend Offender', 'image' => 'images/brands/weekend-offender.jpeg', 'brand' => 'Weekend Offender'],
+    ];
+  @endphp
+
   <section class="container-xxl mb-5">
-    <div class="row g-4">
-      <div class="col-md-4">
-        <div class="stacked-card h-100">
-          <span class="status-pill mb-3">Capsule Selezionate</span>
-          <h2 class="h4">Una curatela minimale</h2>
-          <p class="text-muted-soft mb-0">
-            Ogni capo è scelto per materiali, palette neutre e vestibilità fluida. Costruisci il tuo guardaroba essenziale senza pensieri.
-          </p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="stacked-card h-100">
-          <span class="status-pill mb-3">Pagamenti sicuri</span>
-          <h2 class="h4">Checkout lineare</h2>
-          <p class="text-muted-soft mb-0">
-            Gestione carrello semplificata, stock in tempo reale e checkout guidato. Il tutto pronto per integrazioni future di pagamento.
-          </p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="stacked-card h-100">
-          <span class="status-pill mb-3">Supporto rapido</span>
-          <h2 class="h4">Assistenza umana</h2>
-          <p class="text-muted-soft mb-0">
-            Una volta consegnato il progetto potrai aggiungere live chat, FAQ dinamiche e automazioni personalizzate.
-          </p>
-        </div>
-      </div>
+    <div class="section-heading mb-4">
+      <h2 class="h4 fw-bold m-0">Brand selezionati</h2>
+      <a class="cta-link text-decoration-none" href="{{ route('catalog.index') }}">Vai al catalogo completo →</a>
+    </div>
+    <div class="brand-grid">
+      @foreach($brandSpotlight as $brand)
+        <a class="brand-card text-center text-decoration-none" href="{{ route('catalog.index', ['brand' => $brand['brand']]) }}">
+          <div class="brand-card__media">
+            <img src="{{ asset($brand['image']) }}" alt="Logo {{ $brand['name'] }}" loading="lazy">
+          </div>
+            <span class="brand-card__label">{{ $brand['name'] }}</span>
+        </a>
+      @endforeach
     </div>
   </section>
 

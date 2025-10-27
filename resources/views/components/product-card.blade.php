@@ -2,11 +2,13 @@
 
 @php
   $firstVariant = $product->variants->firstWhere('stock', '>', 0);
+  $ratioVariant = $product->getImageRatioVariant();
+  $mediaModifier = $ratioVariant !== 'standard' ? ' product-card__media--' . $ratioVariant : '';
 @endphp
 
 <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
   <article class="product-card">
-    <a href="{{ $product->product_url }}" class="product-card__media d-block">
+    <a href="{{ $product->product_url }}" class="product-card__media d-block{{ $mediaModifier }}">
       <img src="{{ $product->cover_image_url }}"
            alt="Foto di {{ $product->name }}"
            loading="lazy"

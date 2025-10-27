@@ -26,6 +26,7 @@ use App\Http\Controllers\Admin\ProductController as AdminProductController;
  */
 Route::get('/',                [HomeController::class,    'index'])->name('home');
 Route::get('/catalog',         [CatalogController::class, 'index'])->name('catalog.index');
+Route::view('/chi-siamo',      'about')->name('about');
 
 /**
  * PRODUCT SHOW (via slug)
@@ -53,6 +54,7 @@ Route::get ('/checkout',          [CheckoutController::class, 'show'])->name('ch
 Route::post('/checkout',          [CheckoutController::class, 'process'])->name('checkout.process');
 Route::get ('/checkout/success',  [CheckoutController::class, 'success'])->name('checkout.success');
 Route::get ('/checkout/cancel',   [CheckoutController::class, 'cancel'])->name('checkout.cancel');
+Route::get ('/checkout/confirm',  [CheckoutController::class, 'confirm'])->name('checkout.confirm');
 
 /**
  * AREA ADMIN (gestione catalogo)

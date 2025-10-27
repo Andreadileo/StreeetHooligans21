@@ -83,6 +83,7 @@ class ProductSeeder extends Seeder
         ];
 
         foreach ($products as $data) {
+            $data['image_ratio'] = $data['image_ratio'] ?? 'standard';
             Product::create($data);
         }
     }

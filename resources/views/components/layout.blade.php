@@ -7,10 +7,18 @@
   @vite(['resources/js/app.js']) {{-- importa anche lo SCSS --}}
 </head>
 <body>
+  @php
+    $shippingMsg = 'Ordini sotto i 99€ → spedizione a pagamento · Supera la soglia e la consegna è gratuita · StreetHooligans';
+  @endphp
+  <div class="announcement-bar">
+    <div class="announcement-track">
+      <span class="announcement-text">{{ $shippingMsg }}</span>
+    </div>
+  </div>
   <header class="py-3">
     <nav class="navbar navbar-expand-lg bg-white navbar-light container-xxl">
       <a class="navbar-brand d-flex align-items-center gap-2" href="{{ route('home') }}" style="padding-left: .75rem;">
-        <img src="{{ asset('images/logo1.png') }}" alt="StreetHooligans logo" width="36" height="36" class="rounded-circle">
+        <img src="{{ asset('images/Hooligan con cappello e bottiglia.png') }}" alt="StreetHooligans logo" width="36" height="36" class="rounded-circle">
         <span>StreetHooligans</span>
       </a>
 
@@ -27,6 +35,9 @@
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-3">
           <li class="nav-item">
             <a class="nav-link" href="{{ route('catalog.index') }}">Catalogo</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('about') }}">Chi siamo</a>
           </li>
           <li class="nav-item">
             <a class="nav-link position-relative" href="{{ route('cart.index') }}">

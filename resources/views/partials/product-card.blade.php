@@ -2,6 +2,8 @@
   $productUrl = $product->product_url;
   $firstVariant = $product->variants->firstWhere('stock', '>', 0);
   $coverImage = $product->cover_image_url;
+  $ratioVariant = $product->getImageRatioVariant();
+  $mediaModifier = $ratioVariant !== 'standard' ? ' product-card__media--' . $ratioVariant : '';
 
   $price = $product->price;
   $compare = $product->price_compare ?? null;
@@ -11,7 +13,7 @@
 
 <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
   <article class="product-card">
-    <a href="{{ $productUrl }}" class="product-card__media d-block">
+    <a href="{{ $productUrl }}" class="product-card__media d-block{{ $mediaModifier }}">
       <img
         src="{{ $coverImage }}"
         alt="{{ $product->name }}"

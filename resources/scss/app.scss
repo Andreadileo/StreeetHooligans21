@@ -24,6 +24,35 @@ body {
   font-feature-settings: "ss01" on, "liga" off;
 }
 
+.announcement-bar {
+  background: linear-gradient(90deg, rgba($primary, .85), rgba($secondary, .95));
+  color: #fff;
+  font-size: .85rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(#fff, .2);
+
+  .announcement-track {
+    display: inline-block;
+    white-space: nowrap;
+    min-width: 100%;
+    animation: ticker 20s linear infinite;
+    padding-block: .6rem;
+  }
+
+  .announcement-text {
+    display: inline-flex;
+    align-items: center;
+    gap: .75rem;
+  }
+}
+
+@keyframes ticker {
+  0%   { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
 a {
   transition: color .2s ease, opacity .2s ease;
 }
@@ -105,6 +134,52 @@ main {
   }
 }
 
+.brand-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1.5rem;
+}
+
+.brand-card {
+  background: #fff;
+  border-radius: 1.25rem;
+  padding: 1.5rem 1rem;
+  box-shadow: 0 15px 35px rgba($secondary, .08);
+  transition: transform .3s ease, box-shadow .3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: $secondary;
+
+  &__media {
+    width: 100%;
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      max-height: 60px;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+    }
+  }
+
+  &__label {
+    font-size: .9rem;
+    font-weight: 600;
+  }
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 25px 55px rgba($secondary, .15);
+  }
+}
+
 .product-card {
   background: #fff;
   border-radius: 1.5rem;
@@ -122,15 +197,26 @@ main {
     position: relative;
     overflow: hidden;
     padding-top: 125%;
+    background: #fff;
 
     img {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
+      object-position: center;
+      background-color: #fff;
       transition: transform .4s ease;
     }
+  }
+
+  &__media--wide {
+    padding-top: 75%;
+  }
+
+  &__media--tall {
+    padding-top: 150%;
   }
 
   &:hover .product-card__media img {
@@ -173,11 +259,26 @@ main {
 .gallery-thumb {
   border-radius: 1rem;
   border: 1px solid rgba($secondary, .08);
+  background: #fff;
+  padding: .35rem;
+  width: 88px;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: transform .2s ease, border-color .2s ease;
 
   &:hover {
     transform: translateY(-2px);
     border-color: rgba($primary, .5);
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    background-color: #fff;
   }
 }
 
@@ -186,6 +287,30 @@ main {
   border-radius: 1.75rem;
   box-shadow: 0 20px 45px rgba($secondary, .06);
   padding: 2rem;
+}
+
+.product-viewer {
+  aspect-ratio: 1 / 1;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    background-color: #fff;
+  }
+}
+
+.product-viewer--wide {
+  aspect-ratio: 4 / 3;
+}
+
+.product-viewer--tall {
+  aspect-ratio: 3 / 4;
 }
 
 .cart-table {
@@ -264,5 +389,7 @@ main {
 }
 
 .object-fit-cover {
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
+  background-color: #fff;
 }

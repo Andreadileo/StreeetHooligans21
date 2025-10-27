@@ -17,7 +17,7 @@ class ProductController extends Controller
     /**
      * Taglie gestite in modo rapido nel pannello.
      */
-    protected array $sizes = ['S', 'M', 'L', 'XL', 'XXL'];
+    protected array $sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 
     public function index(): View
     {
@@ -69,7 +69,7 @@ class ProductController extends Controller
 
     public function update(Request $request, Product $product): RedirectResponse
     {
-        $data = $this->validatedProductData($request);
+        $data = $this->validatedProductData($request, $product);
         $variants = $this->prepareVariants($request->input('variants', []));
 
         DB::transaction(function () use ($product, $data, $variants) {
@@ -106,6 +106,7 @@ class ProductController extends Controller
             'price_compare'  => ['nullable', 'numeric', 'min:0'],
             'image'          => ['nullable', 'image', 'max:2048'],
             'image_url'      => ['nullable', 'string', 'max:2048'],
+            'image_ratio'    => ['nullable', 'in:standard,wide,tall'],
             'gallery.*'      => ['nullable', 'image', 'max:2048'],
             'gallery_urls'   => ['nullable', 'string'],
             'remove_gallery' => ['array'],
@@ -118,6 +119,7 @@ class ProductController extends Controller
             ? round((float) $data['price_compare'], 2)
             : null;
         $data['is_active'] = $request->boolean('is_active');
+        $data['image_ratio'] = $request->input('image_ratio', $product?->image_ratio ?? 'standard') ?: 'standard';
 
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('products', 'public');

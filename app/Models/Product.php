@@ -27,6 +27,7 @@ class Product extends Model
         'image_url',   // url assoluto opzionale
         'images',      // array di immagini extra
         'badge',
+        'image_ratio',
         'sizes',       // array (anche con quantità per taglia se vuoi)
         'is_active',
     ];
@@ -49,6 +50,10 @@ class Product extends Model
         'price_cents',
         'cover_image_url',
         'product_url',
+    ];
+
+    protected $attributes = [
+        'image_ratio' => 'standard',
     ];
 
     /**
@@ -90,12 +95,12 @@ class Product extends Model
         $slug = $base;
         $i = 1;
 
-        $query = static::query();
-        if ($ignoreId) {
-            $query->where('id', '!=', $ignoreId);
-        }
-
-        while ($query->where('slug', $slug)->exists()) {
+        while (
+            static::query()
+                ->when($ignoreId, fn ($query) => $query->where('id', '!=', $ignoreId))
+                ->where('slug', $slug)
+                ->exists()
+        ) {
             $slug = "{$base}-{$i}";
             $i++;
         }
@@ -222,5 +227,12 @@ class Product extends Model
         }
 
         return url('storage/' . ltrim($trimmed, '/'));
+    }
+
+    public function getImageRatioVariant(string $default = 'standard'): string
+    {
+        $value = $this->image_ratio ?: $default;
+
+        return in_array($value, ['standard', 'wide', 'tall'], true) ? $value : $default;
     }
 }

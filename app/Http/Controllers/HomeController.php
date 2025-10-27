@@ -9,10 +9,12 @@ class HomeController extends Controller
     public function index()
     {
         $products = Product::with('variants')
-            ->where('is_active', 1)
+            ->active()
             ->latest()
             ->take(12)
-            ->get();
+            ->get()
+            ->shuffle()
+            ->take(4);
 
         return view('home', compact('products'));
     }

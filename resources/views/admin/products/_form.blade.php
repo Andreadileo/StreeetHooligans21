@@ -19,6 +19,16 @@
       <input id="color" name="color" value="{{ $old('color', $product->color) }}" class="form-control">
     </div>
     <div class="col-md-3">
+      @php $imageRatio = $old('image_ratio', $product->image_ratio ?? 'standard'); @endphp
+      <label class="form-label fw-semibold" for="image_ratio">Formato immagine</label>
+      <select id="image_ratio" name="image_ratio" class="form-select">
+        <option value="standard" @selected($imageRatio === 'standard')>Standard (quadrato)</option>
+        <option value="wide" @selected($imageRatio === 'wide')>Wide (rettangolare)</option>
+        <option value="tall" @selected($imageRatio === 'tall')>Tall (verticale)</option>
+      </select>
+      <small class="text-muted-soft d-block mt-1">Usalo se alcune foto hanno troppo spazio vuoto.</small>
+    </div>
+    <div class="col-md-3">
       <label class="form-label fw-semibold" for="price">Prezzo (€)</label>
       <input id="price" name="price" value="{{ $old('price', $product->price) }}" class="form-control" type="number" step="0.01" min="0" required>
     </div>

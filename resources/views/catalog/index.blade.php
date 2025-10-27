@@ -40,11 +40,24 @@
           <button class="btn btn-dark flex-grow-1">
             Filtra
           </button>
-          @if($q || $size)
+          <input type="hidden" name="brand" value="{{ $brand }}">
+          @if($q || $size || $brand)
             <a class="btn btn-outline-secondary" href="{{ route('catalog.index') }}">Reset</a>
           @endif
         </div>
       </form>
+      @if($brand)
+        @php
+          $brandlessQuery = array_filter(['q' => $q, 'size' => $size], fn ($value) => filled($value));
+        @endphp
+        <div class="mt-3">
+          <div class="active-brand-pill d-inline-flex align-items-center gap-2 px-3 py-2 bg-white border rounded-pill shadow-sm small">
+            <span class="text-muted text-uppercase">Brand</span>
+            <strong class="text-dark">{{ $brand }}</strong>
+            <a class="text-decoration-none text-danger lh-1" href="{{ route('catalog.index', $brandlessQuery) }}">&times;</a>
+          </div>
+        </div>
+      @endif
     </section>
 
     <section>

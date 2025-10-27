@@ -13,8 +13,12 @@
     <div class="row g-5 align-items-start">
       {{-- COLONNA SINISTRA: GALLERY --}}
       <div class="col-lg-6">
+        @php
+          $ratioVariant = $product->getImageRatioVariant();
+          $viewerModifier = $ratioVariant !== 'standard' ? ' product-viewer--' . $ratioVariant : '';
+        @endphp
         <div class="content-card p-3">
-          <div class="w-100 overflow-hidden rounded-4" style="aspect-ratio:1/1;">
+          <div class="product-viewer rounded-4 overflow-hidden{{ $viewerModifier }}">
             <img id="mainImage"
                  src="{{ $product->cover_image_url }}"
                  alt="{{ $product->name }}"
@@ -54,7 +58,7 @@
           <div class="mt-3 d-flex gap-2 flex-wrap">
             @foreach($thumbs as $img)
               <button type="button" class="p-0 border-0 bg-transparent thumb-btn" data-src="{{ $img }}">
-                <div class="gallery-thumb overflow-hidden" style="width:88px; aspect-ratio:1/1;">
+                <div class="gallery-thumb overflow-hidden">
                   <img src="{{ $img }}" class="w-100 h-100 object-fit-cover" alt="Anteprima" loading="lazy">
                 </div>
               </button>

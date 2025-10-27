@@ -17,7 +17,7 @@ class ProductVariantSeeder extends Seeder
             return;
         }
 
-        $sizes = ['S', 'M', 'L', 'XL', 'XXL']; // includi tutte le taglie principali
+        $sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL']; // includi tutte le taglie principali
 
         $this->command->info('Creazione varianti per ' . Product::count() . ' prodotti...');
 

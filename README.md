@@ -7,6 +7,13 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Stripe Setup
+
+1. Configura le chiavi nel file `.env` aggiungendo i valori `STRIPE_KEY` (publishable) e `STRIPE_SECRET` (secret) forniti dalla dashboard Stripe. Per test locali utilizza le chiavi di test (prefisso `pk_test_` e `sk_test_`).
+2. Esegui `php artisan config:clear` dopo aver aggiornato l’`.env`, così da rendere disponibili le nuove variabili anche in ambienti con cache di configurazione.
+3. Per simulare pagamenti di prova usa le carte suggerite da Stripe (es. `4242 4242 4242 4242` con una data futura e CVC a 3 cifre). In modalità test non avviene alcun addebito reale.
+4. Facoltativo: installa e avvia lo [Stripe CLI](https://stripe.com/docs/stripe-cli) per ricevere webhook in locale se desideri gestire stati d’ordine avanzati.
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
